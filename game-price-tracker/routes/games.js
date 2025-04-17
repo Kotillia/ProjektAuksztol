@@ -8,6 +8,7 @@ const {
   addGame,
   deleteGame,
   getEnebaPrice,
+  getG2APrice
 } = require('../controllers/gamesController');
 
 // Endpointy:
@@ -18,5 +19,6 @@ router.delete('/:id', deleteGame);
 // Nowy endpoint do pobierania ceny z Eneba
 // Wywołanie: GET /api/games/eneba?gameTitle=Cyberpunk%202077
 router.get('/eneba', getEnebaPrice);
+router.get('/g2a', getG2APrice);
 
 module.exports = router;

@@ -16,6 +16,9 @@ async function scrapeEnebaPrice(gameTitle) {
       elements.map(el => el.textContent.trim())
     );
 
+    console.log('Znalezione ceny:', prices);
+    console.log('Titles:', titles);
+
     // Połącz tytuły i ceny w jeden obiekt
     const products = titles.map((title, index) => {
       const rawPrice = prices[index] || '';

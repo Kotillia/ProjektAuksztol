@@ -20,7 +20,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Routes
 const gameRoutes = require('./routes/games');
-app.use('/api/games', gameRoutes);
+app.use('/api', gameRoutes);
 
 // Start server
 app.listen(port, () => {
