@@ -40,13 +40,12 @@ const deleteGame = async (req, res) => {
 const getEnebaPrice = async (req, res) => {
   const { gameTitle } = req.query;
   if (!gameTitle)
-    return res
-      .status(400)
-      .json({ message: 'gameTitle query parameter is required' });
+    return res.status(400).json({ message: 'gameTitle query parameter is required' });
+
   try {
-    const price = await scrapeEnebaPrice(gameTitle);
-    if (price) {
-      res.json({ gameTitle, price });
+    const result = await scrapeEnebaPrice(gameTitle);
+    if (result) {
+      res.json(result); // np. { title, price, platform }
     } else {
       res.status(404).json({ message: 'Price not found' });
     }
