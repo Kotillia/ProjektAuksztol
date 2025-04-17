@@ -9,7 +9,8 @@ const {
   deleteGame,
   getEnebaPrice,
   getG2APrice,
-  getSteamPrice
+  getSteamPrice,
+  getIGDBGameData
 } = require('../controllers/gamesController');
 
 // Endpointy:
@@ -22,5 +23,6 @@ router.delete('/:id', deleteGame);
 router.get('/eneba', getEnebaPrice);
 router.get('/g2a', getG2APrice);
 router.get('/steam', getSteamPrice);
+router.get('/igdb', getIGDBGameData);
 
 module.exports = router;

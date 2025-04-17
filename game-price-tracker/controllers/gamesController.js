@@ -3,6 +3,7 @@ const Game = require('../models/Game');
 const { scrapeEnebaPrice } = require('../scrapers/enebaScraper');
 const { scrapeG2APrice } = require('../scrapers/g2aScraper');
 const { scrapeSteamPrice } = require('../scrapers/scrapeSteamPrice');
+const { getIGDBGameData: fetchIGDBData } = require('../scrapers/scrapeIGDB');
 
 // Handler do pobierania wszystkich gier
 const getGames = async (req, res) => {
@@ -89,7 +90,29 @@ const getSteamPrice = async (req, res) => {
   }
 };
 
-module.exports = { getGames, addGame, deleteGame, getEnebaPrice, getG2APrice, getSteamPrice };
+const getIGDBGameData = async (req, res) => {
+  const { gameTitle } = req.query;
+
+  if (!gameTitle) {
+    return res.status(400).json({ message: 'gameTitle is required' });
+  }
+  
+  try {
+    const game = await fetchIGDBData(gameTitle);
+    if (game && game.rating && game.summary) {
+      res.json({
+        summary: game.summary,
+        rating: Math.round(game.rating * 100) / 100
+      });
+    } else {
+      res.status(404).json({ message: 'Game summary or rating not found' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { getGames, addGame, deleteGame, getEnebaPrice, getG2APrice, getSteamPrice, getIGDBGameData };
 
 
 
