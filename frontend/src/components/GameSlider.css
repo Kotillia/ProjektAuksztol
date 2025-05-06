@@ -1,0 +1,117 @@
+﻿.slider-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 80px);
+    width: 100vw;
+    background: #000;
+    padding-top: 80px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.carousel {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    height: 500px;
+}
+
+.image {
+    transition: all 0.6s ease;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0;
+}
+
+.image-current {
+    width: 300px;
+    height: 450px;
+    z-index: 3;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.image-prev,
+.image-next {
+    width: 240px;
+    height: 360px;
+    z-index: 2;
+    filter: brightness(0.75);
+    opacity: 0.8;
+}
+
+.image-prev {
+    left: 25%;
+    transform: translateX(-50%) scale(0.92);
+}
+
+.image-next {
+    left: 75%;
+    transform: translateX(-50%) scale(0.92);
+}
+
+/* ===== Animacje kierunkowe tylko dla jednego elementu ===== */
+@keyframes slide-in-right {
+    0% {
+        transform: translateX(100%) scale(0.9);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in-left {
+    0% {
+        transform: translateX(-200%) scale(0.9);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.slide-in-right {
+    animation: slide-in-right 0.5s ease forwards;
+}
+
+.slide-in-left {
+    animation: slide-in-left 0.5s ease forwards;
+}
+
+/* ===== Strzałki ===== */
+.arrow-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    padding: 0.5rem 0.8rem;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 4;
+    transition: background 0.3s;
+}
+
+    .arrow-button:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .arrow-button.left {
+        left: -50px;
+    }
+
+    .arrow-button.right {
+        right: -50px;
+    }
