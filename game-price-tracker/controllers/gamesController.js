@@ -4,6 +4,7 @@ const { scrapeEnebaPrice } = require('../scrapers/enebaScraper');
 const { scrapeG2APrice } = require('../scrapers/g2aScraper');
 const { scrapeSteamPrice } = require('../scrapers/scrapeSteamPrice');
 const { getIGDBGameData: fetchIGDBData } = require('../scrapers/scrapeIGDB');
+const { scrapeInstantGaming } = require('../scrapers/scrapeInstantGaming');
 
 // Handler do pobierania wszystkich gier
 const getGames = async (req, res) => {
@@ -112,7 +113,25 @@ const getIGDBGameData = async (req, res) => {
   }
 };
 
-module.exports = { getGames, addGame, deleteGame, getEnebaPrice, getG2APrice, getSteamPrice, getIGDBGameData };
+const getInstantGamingPrice = async (req, res) => {
+  const { gameTitle } = req.query;
+  if (!gameTitle) {
+    return res.status(400).json({ message: 'gameTitle query parameter is required' });
+  }
+
+  try {
+    const data = await scrapeInstantGaming(gameTitle);
+    if (data) {
+      res.json(data);
+    } else {
+      res.status(404).json({ message: 'Game not found on Instant Gaming' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { getGames, addGame, deleteGame, getEnebaPrice, getG2APrice, getSteamPrice, getIGDBGameData, getInstantGamingPrice };
 
 
 

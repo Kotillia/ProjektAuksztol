@@ -10,7 +10,8 @@ const {
   getEnebaPrice,
   getG2APrice,
   getSteamPrice,
-  getIGDBGameData
+  getIGDBGameData,
+  getInstantGamingPrice
 } = require('../controllers/gamesController');
 
 // Endpointy:
@@ -23,5 +24,6 @@ router.get('/eneba', getEnebaPrice);
 router.get('/g2a', getG2APrice);
 router.get('/steam', getSteamPrice);
 router.get('/igdb', getIGDBGameData);
+router.get('/instantgaming', getInstantGamingPrice);
 
 module.exports = router;
