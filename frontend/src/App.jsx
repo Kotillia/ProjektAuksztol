@@ -10,12 +10,15 @@ function Home() {
     const [newTitle, setNewTitle] = useState('');
     const API_BASE = 'http://localhost:5000/api';
 
+    // ✅ Fetch gier z bazy
     const fetchGames = async () => {
         const res = await fetch(`${API_BASE}/games`);
         const data = await res.json();
         setGames(data);
     };
 
+    // ❌ Poprzednie dodawanie do bazy – NIEUŻYWANE
+    /*
     const addGame = async () => {
         if (!newTitle.trim()) return;
         await fetch(`${API_BASE}/games`, {
@@ -25,6 +28,37 @@ function Home() {
         });
         setNewTitle('');
         fetchGames();
+    };
+    */
+
+    // ✅ Zamiast tego: scraping i alert
+    const fetchPrices = async () => {
+        if (!newTitle.trim()) return;
+
+        const title = encodeURIComponent(newTitle.trim());
+
+        try {
+            const [eneba, g2a, steam, igdb, ig] = await Promise.all([
+                fetch(`${API_BASE}/eneba?gameTitle=${title}`).then(res => res.json()),
+                fetch(`${API_BASE}/g2a?gameTitle=${title}`).then(res => res.json()),
+                fetch(`${API_BASE}/steam?gameTitle=${title}`).then(res => res.json()),
+                fetch(`${API_BASE}/igdb?gameTitle=${title}`).then(res => res.json()),
+                fetch(`${API_BASE}/instantgaming?gameTitle=${title}`).then(res => res.json())
+            ]);
+
+            alert(
+                `📊 Wyniki dla "${newTitle}":\n\n` +
+                `💰 Eneba: ${eneba.price || 'Brak'}\n` +
+                `💰 G2A: ${g2a.price || 'Brak'}\n` +
+                `💰 Steam: ${steam.price || 'Brak'}\n` +
+                `💰 InstantGaming: ${ig.price || 'Brak'}\n` +
+                `⭐ Ocena IGDB: ${igdb.rating || 'Brak'}\n\n` +
+                `📝 Opis IGDB:\n${igdb.summary || 'Brak opisu'}`
+            );
+        } catch (error) {
+            console.error('❌ Błąd podczas pobierania danych:', error);
+            alert('❌ Wystąpił błąd podczas pobierania danych.');
+        }
     };
 
     const deleteGame = async (id) => {
@@ -38,7 +72,7 @@ function Home() {
 
     return (
         <>
-            <Navbar newTitle={newTitle} setNewTitle={setNewTitle} addGame={addGame} />
+            <Navbar newTitle={newTitle} setNewTitle={setNewTitle} addGame={fetchPrices} />
             <div className="container">
                 <GameSlider />
             </div>

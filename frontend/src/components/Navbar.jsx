@@ -1,7 +1,16 @@
-﻿import { Link } from 'react-router-dom';
+﻿import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 function Navbar({ newTitle, setNewTitle, addGame }) {
+    const navigate = useNavigate();
+
+    const handleSearch = () => {
+        if (!newTitle.trim()) return;
+        const id = newTitle.trim().replace(/\s+/g, '-'); // np. "Call of Duty" → "Call-of-Duty"
+        navigate(`/game/${id}`);
+        setNewTitle(''); // wyczyść pole po wyszukaniu
+    };
+
     return (
         <header className="navbar">
             <div className="navbar-left">
@@ -10,7 +19,7 @@ function Navbar({ newTitle, setNewTitle, addGame }) {
                 </Link>
             </div>
 
-            {newTitle !== undefined && setNewTitle && addGame && (
+            {newTitle !== undefined && setNewTitle && (
                 <div className="navbar-center">
                     <div className="search-bar">
                         <input
@@ -18,8 +27,11 @@ function Navbar({ newTitle, setNewTitle, addGame }) {
                             value={newTitle}
                             onChange={(e) => setNewTitle(e.target.value)}
                             placeholder="Wpisz tytuł gry..."
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') handleSearch();
+                            }}
                         />
-                        <button onClick={addGame}>🔍</button>
+                        <button onClick={handleSearch}>🔍</button>
                     </div>
                 </div>
             )}

@@ -1,13 +1,32 @@
+/* WYMIANA obecnego kodu .details-wrapper */
+.details-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    min-height: 100vh; /* To zapewnia pe³n¹ wysokoœæ ekranu */
+    width: 100vw;       /* To wymusza pe³n¹ szerokoœæ */
+    color: #fff;
+    box-sizing: border-box;
+    padding: 80px 0 40px;
+}
+
+
 .details-layout {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: 100px;
-    background: #000;
-    min-height: calc(100vh - 100px);
-    color: #fff;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    gap: 40px;
+}
+
+.top-section {
+    display: flex;
     gap: 60px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
 }
 
 .left-panel {
@@ -15,7 +34,7 @@
 }
 
 .game-poster {
-    height: 600px;
+    height: 300px;
     border-radius: 12px;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
@@ -31,6 +50,7 @@
 .game-title {
     font-size: 1.8rem;
     margin: 0;
+    text-align: center;
 }
 
 .info-block {
@@ -38,8 +58,40 @@
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    width: 100%;
 }
 
     .info-block h3 {
         margin-bottom: 10px;
     }
+
+.description-block {
+    width: 642px;
+    max-height: 100%; /* dla rozwiniêtej wersji */
+    box-sizing: border-box;
+    margin-top: 20px;
+    overflow: hidden;
+    position: relative;
+    transition: max-height 0.4s ease;
+}
+
+    .description-block.collapsed {
+        max-height: 260px; /* ustalamy przyk³adow¹ wysokoœæ */
+        overflow: hidden;
+    }
+
+.show-more-button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background: linear-gradient(to top, #1c1c1c 80%, transparent);
+    padding-top: 40px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #aaa;
+}
+
+
+
