@@ -21,6 +21,7 @@ async function scrapeSteamPrice(gameTitle) {
     return {
       title: gameData.name,
       price: gameData.price_overview.final_formatted,
+      headerImage: gameData.header_image
     };
   } catch (err) {
     console.error('❌ Błąd scrapera Steam:', err.message);
