@@ -3,6 +3,8 @@ import Navbar from './Navbar';
 import './GameDetails.css';
 import { useState, useEffect } from 'react';
 
+
+
 function GameDetails() {
     const { id } = useParams();
     const [newTitle, setNewTitle] = useState('');
@@ -17,6 +19,7 @@ function GameDetails() {
         setGameTitle(formattedTitle);
         fetchData(formattedTitle);
     }, [id]);
+
 
     const fetchData = async (title) => {
         try {
@@ -44,6 +47,10 @@ function GameDetails() {
             console.log('✅ InstantGaming:', ig);
 
             setPrices({ eneba, steam, igdb, ig });
+            
+               
+
+
         } catch (err) {
             console.error('Błąd podczas pobierania danych:', err);
         }
