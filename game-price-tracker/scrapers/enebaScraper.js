@@ -1,9 +1,14 @@
-
 const puppeteer = require('puppeteer');
 
 function titleMatchesSearch(title, search) {
     const normalize = str => str.toLowerCase().replace(/[^a-z0-9]/g, '');
     return normalize(title).includes(normalize(search));
+}
+
+function isProbablyFullGame(title) {
+    const lower = title.toLowerCase();
+    const banned = ['dlc', 'expansion', 'add-on', 'add on', 'currency', 'coins', 'bundle', 'skin', 'pack', 'pass', 'subscription'];
+    return !banned.some(word => lower.includes(word));
 }
 
 async function scrapeEnebaPrice(gameTitle) {
@@ -22,9 +27,6 @@ async function scrapeEnebaPrice(gameTitle) {
             elements.map(el => el.textContent.trim())
         );
 
-        console.log('Znalezione ceny:', prices);
-        console.log('Titles:', titles);
-
         const products = titles.map((title, index) => {
             const rawPrice = prices[index] || '';
             const numericPrice = parseFloat(rawPrice.replace(',', '.').replace(/[^\d.]/g, '')) || Infinity;
@@ -38,10 +40,10 @@ async function scrapeEnebaPrice(gameTitle) {
             };
         });
 
-        // const filtered = products.filter(p => p.platform === 'PC' && isFinite(p.numericPrice));
         const filtered = products.filter(p =>
             p.platform === 'PC' &&
-            titleMatchesSearch(p.title, gameTitle) && // ⬅️ dopasowanie tytułu
+            titleMatchesSearch(p.title, gameTitle) &&
+            isProbablyFullGame(p.title) &&
             isFinite(p.numericPrice)
         );
 
