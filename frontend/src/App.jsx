@@ -17,6 +17,31 @@ function Home() {
         setGames(data);
     };
 
+    //Wyciąganie z bazydanch
+
+    fetch('http://localhost:3000/api/dane')
+    .then(response => response.json())
+    .then(data => {
+      if (!Array.isArray(data) || data.length === 0) {
+        document.getElementById('tabela-container').innerText = "Brak danych do wyświetlenia.";
+        return;
+      }
+
+      console.log('Dane z bazy danych:', data);
+
+      // Jeśli chcesz wypisać każdą wartość osobno:
+      data.forEach((row, index) => {
+      console.log(`Rekord ${index + 1}:`);
+      Object.entries(row).forEach(([key, value]) => {
+      console.log(`  ${key}: ${value}`);
+          });
+      });
+    })
+    .catch(error => {
+      document.getElementById('tabela-container').innerText = "Błąd ładowania danych.";
+      console.error("Błąd:", error);
+    }); 
+    
     // ❌ Poprzednie dodawanie do bazy – NIEUŻYWANE
     /*
     const addGame = async () => {
