@@ -4,8 +4,8 @@
     justify-content: center;
     align-items: center;
     background: #000;
-    min-height: 100vh; /* To zapewnia pe≥nπ wysokoúÊ ekranu */
-    width: 100vw;       /* To wymusza pe≥nπ szerokoúÊ */
+    min-height: 100vh; /* To zapewnia peÔøΩnÔøΩ wysokoÔøΩÔøΩ ekranu */
+    width: 100vw;       /* To wymusza peÔøΩnÔøΩ szerokoÔøΩÔøΩ */
     color: #fff;
     box-sizing: border-box;
     padding: 80px 0 40px;
@@ -66,32 +66,41 @@
     }
 
 .description-block {
-    width: 642px;
-    max-height: 100%; /* dla rozwiniÍtej wersji */
-    box-sizing: border-box;
-    margin-top: 20px;
-    overflow: hidden;
-    position: relative;
-    transition: max-height 0.4s ease;
+  width: 642px;
+  max-height: 100%;
+  box-sizing: border-box;
+  margin-top: 20px;
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.4s ease;
+  padding-bottom: 60px; /* ‚¨ÖÔ∏è dodane */
 }
 
-    .description-block.collapsed {
-        max-height: 260px; /* ustalamy przyk≥adowπ wysokoúÊ */
-        overflow: hidden;
-    }
+.description-block.collapsed {
+  max-height: 250px; /* ‚¨ÜÔ∏è zwiƒôkszone z 260 na 250 + padding daje 310 */
+}
+
+.description-block p {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
 
 .show-more-button {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    background: linear-gradient(to top, #1c1c1c 80%, transparent);
-    padding-top: 40px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #aaa;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background: linear-gradient(to top, #1c1c1c 70%, transparent);
+  padding-top: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #aaa;
+  z-index: 1;
 }
+
+
 
 
 
