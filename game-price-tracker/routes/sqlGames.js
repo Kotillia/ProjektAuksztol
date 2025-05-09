@@ -10,9 +10,18 @@ const config = {
   database: 'GamePriceTracker',
   options: {
     encrypt: true,
-    trustServerCertificate: true,
+    trustServerCertificate: true
   },
 };
+
+sql.connect(config)
+  .then(() => {
+    console.log('✅ Połączono z bazą danych!');
+    return sql.close();
+  })
+  .catch(err => {
+    console.error('❌ Błąd połączenia:', err);
+  });
 
 // Pobieranie wszystkich danych
 router.get('/dane', async (req, res) => {
