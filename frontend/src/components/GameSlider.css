@@ -4,7 +4,7 @@
   align-items: flex-start; /* 👈 Przenosi slider wyżej */
   height: calc(100vh - 80px);
   width: 100vw;
-  background: #000;
+  background: linear-gradient(90deg, #f27121, #e94057, #8a2387);
   padding-top: 40px; /* 👈 Mniejszy padding */
   box-sizing: border-box;
   overflow: hidden;

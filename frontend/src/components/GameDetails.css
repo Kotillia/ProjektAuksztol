@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #000;
+    background: linear-gradient(90deg, #f27121, #e94057, #8a2387);  
     min-height: 100vh; /* To zapewnia pe�n� wysoko�� ekranu */
     width: 100vw;       /* To wymusza pe�n� szeroko�� */
     color: #fff;
